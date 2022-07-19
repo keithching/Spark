@@ -32,4 +32,11 @@ module.exports = {
             .update(eventProvider)
             .where("id", id);
     },
+
+    remove(id) {
+        knex.from(EVENT_PROVIDER_TABLE)
+            .where("id", id)
+            .del()
+            .catch(console.error);
+    }
 }

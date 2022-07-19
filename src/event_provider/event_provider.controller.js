@@ -40,4 +40,14 @@ router.patch("/:id", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        await eventProviderModel.remove(id);
+        res.send("event provider deleted").status(204);
+    } catch(err) {
+        res.send(err).status(404);
+    }
+});
+
 module.exports = router;
