@@ -16,4 +16,4 @@ app.get("/", (req, res) => {
     res.send("First!").status(200);
 });
 
-app.get("/event_providers", eventProviderController.getAll);
+app.use("/event_providers", eventProviderController);
