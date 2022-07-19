@@ -30,4 +30,14 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+router.patch("/:id", async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        await eventProviderModel.update(id, req.body);
+        res.status(204).end();
+    } catch(err) {
+        res.send(err).status(404);
+    }
+});
+
 module.exports = router;

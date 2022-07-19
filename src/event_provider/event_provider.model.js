@@ -25,5 +25,11 @@ module.exports = {
 
     create(eventProvider) {
         return knex(EVENT_PROVIDER_TABLE).insert(eventProvider);
-    }
+    },
+
+    update(id, eventProvider) {
+        return knex(EVENT_PROVIDER_TABLE)
+            .update(eventProvider)
+            .where("id", id);
+    },
 }
