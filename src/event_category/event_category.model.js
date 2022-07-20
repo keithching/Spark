@@ -22,4 +22,22 @@ module.exports = {
         .from(EVENT_CATEGORY_TABLE)
         .where("id", id);
     },
+
+
+    create(eventCategory) {
+        return knex(EVENT_CATEGORY_TABLE).insert(eventCategory);
+    },
+
+    update(id, eventCategory) {
+        return knex(EVENT_CATEGORY_TABLE)
+            .update(eventCategory)
+            .where("id", id);
+    },
+
+    remove(id) {
+        knex.from(EVENT_CATEGORY_TABLE)
+            .where("id", id)
+            .del()
+            .catch(console.error);
+    }
 }
