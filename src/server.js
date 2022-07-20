@@ -1,7 +1,10 @@
 const express = require("express");
 
-const eventProviderController = require("./event_provider/event_provider.controller");
-const eventCategoryController = require("./event_category/event_category.controller");
+const controllers = {
+    eventProvider: require("./event_provider/event_provider.controller"),
+    eventCategory: require("./event_category/event_category.controller"),
+    event: require("./event/event.controller")
+};
 
 const app = express();
 
@@ -17,5 +20,6 @@ app.get("/", (req, res) => {
     res.send("First!").status(200);
 });
 
-app.use("/event_providers", eventProviderController);
-app.use("/event_categories", eventCategoryController);
+app.use("/event_providers", controllers.eventProvider);
+app.use("/event_categories", controllers.eventCategory);
+app.use("/events", controllers.event);
