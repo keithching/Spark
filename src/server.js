@@ -1,6 +1,7 @@
 const express = require("express");
 
 const eventProviderController = require("./event_provider/event_provider.controller");
+const eventCategoryController = require("./event_category/event_category.controller");
 
 const app = express();
 
@@ -17,3 +18,4 @@ app.get("/", (req, res) => {
 });
 
 app.use("/event_providers", eventProviderController);
+app.use("/event_categories", eventCategoryController);
