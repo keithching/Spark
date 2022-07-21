@@ -6,37 +6,47 @@ module.exports = {
     EVENT_TABLE,
 
     getAll(limit = 100) { // arbitrary limit for now
-        return knex.select({
-            id: "id",
-            title: "title",
-            eventProviderId: "event_provider_id",
-            eventCategoryId: "event_category_id",
-            location: "location",
-            dateStart: "date_start",
-            dateEnd: "date_end"
+        // grab the relational data by join table and return it
+        return knex(EVENT_TABLE).select({
+            id: "event.id",
+            title: "event.title",
+            eventProvider: "event_provider.name",
+            eventCategory: "event_category.name",
+            location: "event.location",
+            dateStart: "event.date_start",
+            dateEnd: "event.date_end"
         })
-        .from(EVENT_TABLE)
+        .join("event_provider", "event_provider_id", "event_provider.id")
+        .join("event_category", "event_category_id", "event_category.id")
         .limit(limit);
     },
 
     getById(id) {
-        return knex.select({
-            id: "id",
-            title: "title",
-            eventProviderId: "event_provider_id",
-            eventCategoryId: "event_category_id",
-            location: "location",
-            dateStart: "date_start",
-            dateEnd: "date_end"
+        // TODO: grab the relational data by join table and return it
+        return knex(EVENT_TABLE).select({
+            id: "event.id",
+            title: "event.title",
+            eventProvider: "event_provider.name",
+            eventCategory: "event_category.name",
+            location: "event.location",
+            dateStart: "event.date_start",
+            dateEnd: "event.date_end"
         })
-        .from(EVENT_TABLE)
-        .where("id", id);
+        .join("event_provider", "event_provider_id", "event_provider.id")
+        .join("event_category", "event_category_id", "event_category.id")
+        .where("event.id", id);
     },
 
+    // TODO: handle the date creation
     create(event) {
-        return knex(EVENT_TABLE).insert(event);
+        return knex(EVENT_TABLE).insert({
+            ...event,
+            date_start: new Date(), // TO UPDATE
+            date_end: new Date() // TO UPDATE
+        });
     },
 
+    // TODO: handle the date update
     update(id, event) {
         return knex(EVENT_TABLE)
             .update(event)
