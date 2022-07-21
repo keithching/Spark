@@ -1,5 +1,16 @@
 const knex = require("../knex");
 
+const { validProps, requiredProps } = require("../../util/validation");
+
+const validateProps = validProps([
+    "id",
+    "name",
+    "email",
+    "password"
+]);
+
+// const validateRequired = requiredProps(["name"]);
+
 const EVENT_PROVIDER_TABLE = "event_provider";
 
 module.exports = {
@@ -23,13 +34,19 @@ module.exports = {
         .where("id", id);
     },
 
-    create(eventProvider) {
-        return knex(EVENT_PROVIDER_TABLE).insert(eventProvider);
+    async create(eventProvider) {
+        try {
+            return knex(EVENT_PROVIDER_TABLE).insert(
+                validateProps(eventProvider)
+            );
+        } catch(err) {
+            throw new Error(err);
+        }
     },
 
     update(id, eventProvider) {
         return knex(EVENT_PROVIDER_TABLE)
-            .update(eventProvider)
+            .update(validateProps(eventProvider))
             .where("id", id);
     },
 

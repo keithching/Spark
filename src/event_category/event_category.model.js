@@ -1,5 +1,14 @@
 const knex = require("../knex");
 
+const { validProps, requiredProps } = require("../../util/validation");
+
+const validateProps = validProps([
+    "id",
+    "name",
+]);
+
+// const validateRequired = requiredProps(["name"]);
+
 const EVENT_CATEGORY_TABLE = "event_category";
 
 module.exports = {
@@ -25,12 +34,14 @@ module.exports = {
 
 
     create(eventCategory) {
-        return knex(EVENT_CATEGORY_TABLE).insert(eventCategory);
+        return knex(EVENT_CATEGORY_TABLE).insert(
+            validateProps(eventCategory)
+        );
     },
 
     update(id, eventCategory) {
         return knex(EVENT_CATEGORY_TABLE)
-            .update(eventCategory)
+            .update(validateProps(eventCategory))
             .where("id", id);
     },
 

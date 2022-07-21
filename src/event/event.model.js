@@ -1,5 +1,19 @@
 const knex = require("../knex");
 
+const { validProps, requiredProps } = require("../../util/validation");
+
+const validateProps = validProps([
+    "id",
+    "title",
+    "event_provider_id",
+    "event_category_id",
+    "location",
+    "date_start",
+    "date_end"
+]);
+
+// const validateRequired = requiredProps(["name"]);
+
 const EVENT_TABLE = "event";
 
 module.exports = {
@@ -39,17 +53,21 @@ module.exports = {
 
     // TODO: handle the date creation
     create(event) {
-        return knex(EVENT_TABLE).insert({
+        const eventData = {
             ...event,
             date_start: new Date(), // TO UPDATE
             date_end: new Date() // TO UPDATE
-        });
+        }
+
+        return knex(EVENT_TABLE).insert(
+            validateProps(eventData)
+        );
     },
 
     // TODO: handle the date update
     update(id, event) {
         return knex(EVENT_TABLE)
-            .update(event)
+            .update(validateProps(event))
             .where("id", id);
     },
 
