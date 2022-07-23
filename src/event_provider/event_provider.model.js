@@ -1,6 +1,7 @@
 const knex = require("../knex");
+const bcrypt = require('bcrypt');
 
-const { validProps, requiredProps, isNumberOrString } = require("../../util/validation");
+const { validProps, requiredProps, isNumberOrString, getHashPassword } = require("../../util/validation");
 
 const validateProps = validProps([
     "id",
@@ -48,6 +49,10 @@ module.exports = {
 
     create(eventProvider) {
         try {
+            // Password hashing https://www.npmjs.com/package/bcrypt
+            if (eventProvider.password) {
+                eventProvider.password = getHashPassword(eventProvider.password);
+            }
             return knex(EVENT_PROVIDER_TABLE).insert(
                 validateProps(eventProvider)
             );
@@ -57,6 +62,10 @@ module.exports = {
     },
 
     update(id, eventProvider) {
+        if (eventProvider.password) {
+            eventProvider.password = getHashPassword(eventProvider.password);
+        }
+
         return knex(EVENT_PROVIDER_TABLE)
             .update(validateProps(eventProvider))
             .where("id", id)

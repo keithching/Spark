@@ -68,7 +68,6 @@ describe("event provider", () => {
 
           it("should get eventProvider by name", async () => {
             const eventProvider = await eventProviderModel.getByIdOrName(eventProviderFixture.name);
-            console.log(eventProvider);
             expect(eventProvider).to.exist;
             expect(eventProvider.id).to.eq(eventProviderFixture.id);
           });

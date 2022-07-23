@@ -21,6 +21,9 @@ Unit Testing
 - `Mocha` (Testing Framework)
 - `Chai` (Assertion Library)
 
+Library
+
+- `bcrypt` (Password Hashing)
 
 <br/>
 <br/>
@@ -73,7 +76,7 @@ password: "abcd1234"
 
 ---
 
-Get a single event provider by id.
+Get a single event provider by id or name.
 
 `GET` localhost:3000/api/event_providers/{id or name}
 

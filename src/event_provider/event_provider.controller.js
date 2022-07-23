@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
     try {
         const result = await eventProviderModel.create(req.body);
-        res.status(204).end();
+        res.send("event provider created").status(204).end();
     } catch(err) {
         res.send(err).status(404);
     }
@@ -22,19 +22,21 @@ router.post("/", async (req, res) => {
 
 router.get("/:idOrName", async (req, res) => {
     try {
-        const idOrName = parseInt(req.params.idOrName);
+        const idOrName = req.params.idOrName;
         const eventProvider = await eventProviderModel.getByIdOrName(idOrName);
         res.send(eventProvider).status(200);
-    } catch(err) {
+    } 
+    catch(err) {
         res.send(err).status(404);
     }
 });
 
 router.patch("/:id", async (req, res) => {
     try {
+        // TODO: name support
         const id = parseInt(req.params.id);
         await eventProviderModel.update(id, req.body);
-        res.status(204).end();
+        res.send("event provider updated").status(204).end();
     } catch(err) {
         res.send(err).status(404);
     }
@@ -42,6 +44,7 @@ router.patch("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
+        // TODO: name support
         const id = parseInt(req.params.id);
         await eventProviderModel.remove(id);
         res.send("event provider deleted").status(204);

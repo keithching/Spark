@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = {
   /**
    * Generate a function to validate model properties
@@ -40,7 +42,13 @@ module.exports = {
       result.type = 'string';
       return result;
     }
+    result.value = Number(idOrName);
     result.type = 'number';
     return result;
+  },
+
+  getHashPassword(plainTextPassword) {
+    const saltRounds = 10;
+    return bcrypt.hashSync(plainTextPassword, saltRounds);
   }
 };
