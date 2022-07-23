@@ -49,7 +49,6 @@ module.exports = {
 
     create(eventProvider) {
         try {
-            // Password hashing https://www.npmjs.com/package/bcrypt
             if (eventProvider.password) {
                 eventProvider.password = getHashPassword(eventProvider.password);
             }

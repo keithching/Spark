@@ -47,6 +47,7 @@ module.exports = {
     return result;
   },
 
+  // Password hashing https://www.npmjs.com/package/bcrypt
   getHashPassword(plainTextPassword) {
     const saltRounds = 10;
     return bcrypt.hashSync(plainTextPassword, saltRounds);

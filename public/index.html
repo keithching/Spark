@@ -5,8 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spark</title>
+    <script src="./UI.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Hi!</h1>
+    <h1>Hi! Click the buttons below to fetch from my API</h1>
+    <p>the server is not yet deployed. So the fetch calls are being made to localhost</p>
+    <p>check out the console for results 👍 </p>
+    <div class="separator"></div>
+    <div class="container">
+        <p>grab everything</p>
+        <button id="getEventProviders">Get Event Providers</button>
+        <button id="getEventCategories">Get Event Categories</button>
+        <button id="getEvents">Get Events</button>
+        <p>or get specific one</p>
+        <form action="" class="eventProviderForm">
+            <input />
+            <button>Get Event Provider by id or name</button>
+        </form>
+        <form action="" class="eventCategoryForm">
+            <input />
+            <button>Get Event Category by id</button>
+        </form>
+        <form action="" class="eventForm">
+            <input />
+            <button>Get Event by id</button>
+        </form>
+    </div>
 </body>
 </html>
