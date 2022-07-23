@@ -31,10 +31,11 @@ module.exports = {
             name: "name"
         })
         .from(EVENT_PROVIDER_TABLE)
-        .where("id", id);
+        .where("id", id)
+        .first();
     },
 
-    async create(eventProvider) {
+    create(eventProvider) {
         try {
             return knex(EVENT_PROVIDER_TABLE).insert(
                 validateProps(eventProvider)
@@ -47,7 +48,10 @@ module.exports = {
     update(id, eventProvider) {
         return knex(EVENT_PROVIDER_TABLE)
             .update(validateProps(eventProvider))
-            .where("id", id);
+            .where("id", id)
+            .returning("id")
+            .then(result => result[0].id)
+            .catch(error => {throw new Error(error)});
     },
 
     remove(id) {

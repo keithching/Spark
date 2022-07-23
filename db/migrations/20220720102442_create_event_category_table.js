@@ -5,7 +5,7 @@
 exports.up = async function(knex) {
   return await knex.schema
     .createTable("event_category", function (table) {
-        table.increments("id").primary();
+        table.increments("id");
         table.string('name', 32)
             .unique()
             .notNullable();

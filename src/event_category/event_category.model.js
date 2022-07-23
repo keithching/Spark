@@ -42,7 +42,10 @@ module.exports = {
     update(id, eventCategory) {
         return knex(EVENT_CATEGORY_TABLE)
             .update(validateProps(eventCategory))
-            .where("id", id);
+            .where("id", id)
+            .returning("id")
+        .then(result => result[0].id)
+        .catch(error => {throw new Error(error)});
     },
 
     remove(id) {

@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
     res.send("First!").status(200);
 });
 
-app.use("/event_providers", controllers.eventProvider);
-app.use("/event_categories", controllers.eventCategory);
-app.use("/events", controllers.event);
+app.use("/api/event_providers", controllers.eventProvider);
+app.use("/api/event_categories", controllers.eventCategory);
+app.use("/api/events", controllers.event);
+
+app.use("/", express.static('public'));
+// serve static files in express
+// https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
