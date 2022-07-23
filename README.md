@@ -75,7 +75,7 @@ password: "abcd1234"
 
 Get a single event provider by id.
 
-`GET` localhost:3000/api/event_providers/{id}
+`GET` localhost:3000/api/event_providers/{id or name}
 
 | return value | An event provider object. |
 | --- | --- |

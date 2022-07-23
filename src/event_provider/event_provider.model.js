@@ -1,6 +1,6 @@
 const knex = require("../knex");
 
-const { validProps, requiredProps } = require("../../util/validation");
+const { validProps, requiredProps, isNumberOrString } = require("../../util/validation");
 
 const validateProps = validProps([
     "id",
@@ -25,14 +25,25 @@ module.exports = {
         .limit(limit);
     },
 
-    getById(id) {
-        return knex.select({
-            id: "id",
-            name: "name"
-        })
-        .from(EVENT_PROVIDER_TABLE)
-        .where("id", id)
-        .first();
+    getByIdOrName(idOrName) {
+        const data = isNumberOrString(idOrName);
+        if (data.type == 'number') {
+            return knex.select({
+                id: "id",
+                name: "name"
+            })
+            .from(EVENT_PROVIDER_TABLE)
+            .where("id", data.value)
+            .first();
+        } else {
+            return knex.select({
+                id: "id",
+                name: "name"
+            })
+            .from(EVENT_PROVIDER_TABLE)
+            .where("name", data.value)
+            .first();
+        }
     },
 
     create(eventProvider) {

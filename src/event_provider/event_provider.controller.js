@@ -20,10 +20,10 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:idOrName", async (req, res) => {
     try {
-        const id = parseInt(req.params.id);
-        const eventProvider = await eventProviderModel.getById(id);
+        const idOrName = parseInt(req.params.idOrName);
+        const eventProvider = await eventProviderModel.getByIdOrName(idOrName);
         res.send(eventProvider).status(200);
     } catch(err) {
         res.send(err).status(404);

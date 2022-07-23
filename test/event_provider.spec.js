@@ -58,10 +58,17 @@ describe("event provider", () => {
         });
     });
 
-    describe("getById", () => {
+    describe("getByIdOrName", () => {
         describe("when eventProvider exists", () => {
           it("should get eventProvider by id", async () => {
-            const eventProvider = await eventProviderModel.getById(eventProviderFixture.id);
+            const eventProvider = await eventProviderModel.getByIdOrName(eventProviderFixture.id);
+            expect(eventProvider).to.exist;
+            expect(eventProvider.id).to.eq(eventProviderFixture.id);
+          });
+
+          it("should get eventProvider by name", async () => {
+            const eventProvider = await eventProviderModel.getByIdOrName(eventProviderFixture.name);
+            console.log(eventProvider);
             expect(eventProvider).to.exist;
             expect(eventProvider.id).to.eq(eventProviderFixture.id);
           });
@@ -69,7 +76,7 @@ describe("event provider", () => {
     
         describe("when eventProvider doesn't exist", () => {
           it("should return undefined", async () => {
-            const eventProvider = await eventProviderModel.getById(45000);
+            const eventProvider = await eventProviderModel.getByIdOrName(45000);
             expect(eventProvider).to.be.undefined;
           });
         });
@@ -126,7 +133,7 @@ describe("event provider", () => {
         });
     
         it("should update the eventProvider", async () => {
-          const eventProvider = await eventProviderModel.getById(eventProviderFixture.id);
+          const eventProvider = await eventProviderModel.getByIdOrName(eventProviderFixture.id);
           expect(eventProvider.name).to.eq("A new and improved name");
         });
       });
@@ -143,7 +150,7 @@ describe("event provider", () => {
             await eventProviderModel.create(newProvider);
             await eventProviderModel.remove(newProvider.id);
 
-            const providerFromDB = await eventProviderModel.getById(newProvider.id);
+            const providerFromDB = await eventProviderModel.getByIdOrName(newProvider.id);
 
             expect(providerFromDB).to.be.undefined;
         });

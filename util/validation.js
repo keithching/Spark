@@ -29,5 +29,18 @@ module.exports = {
       }
       return propsToCheck;
     };
+  },
+
+  isNumberOrString(idOrName) {
+    const result = {
+      type: '',
+      value: idOrName
+    }
+    if (Number.isNaN(Number(idOrName))) {
+      result.type = 'string';
+      return result;
+    }
+    result.type = 'number';
+    return result;
   }
 };
