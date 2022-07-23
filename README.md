@@ -8,7 +8,6 @@ This was created during my time as a student at [Code Chrysalis](https://www.cod
 <br/>
 
 ## Tech Stack
----
 
 Backend
 
@@ -27,13 +26,10 @@ Unit Testing
 <br/>
 
 ## API Endpoints
----
 
 <br/>
 
 ### Event Providers (endpoint)
-
----
 
 Getting all the event providers.
 
@@ -123,7 +119,6 @@ Delete an event provider.
 
 ## Event Category (endpoint)
 
----
 
 Getting all the event categories.
 
@@ -208,8 +203,6 @@ Delete an event category.
 <br/>
 
 ## Event (endpoint)
-
----
 
 Getting all the events.
 
