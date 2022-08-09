@@ -3,7 +3,8 @@ const express = require("express");
 const controllers = {
     eventProvider: require("./event_provider/event_provider.controller"),
     eventCategory: require("./event_category/event_category.controller"),
-    event: require("./event/event.controller")
+    event: require("./event/event.controller"),
+    user: require("./user/user.controller")
 };
 
 const app = express();
@@ -19,6 +20,7 @@ app.listen(PORT, () => {
 app.use("/api/event_providers", controllers.eventProvider);
 app.use("/api/event_categories", controllers.eventCategory);
 app.use("/api/events", controllers.event);
+app.use("/api/users", controllers.user);
 
 app.use("/", express.static('public'));
 // serve static files in express
