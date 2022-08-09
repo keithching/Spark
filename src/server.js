@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const controllers = {
     eventProvider: require("./event_provider/event_provider.controller"),
@@ -11,6 +12,8 @@ const controllers = {
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
