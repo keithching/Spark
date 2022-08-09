@@ -27,7 +27,7 @@ app.use("/api/events", controllers.event);
 app.use("/api/users", controllers.user);
 app.use("/api/events_users", controllers.eventUser);
 
-app.use("/", express.static('public'));
+// app.use("/", express.static('public'));
 // serve static files in express
 // https://expressjs.com/en/starter/static-files.html#serving-static-files-in-express
 
