@@ -1,6 +1,7 @@
 const knex = require("../knex");
-
 const { validProps, requiredProps } = require("../../util/validation");
+const { EVENT_PROVIDER_TABLE } = require("../event_provider/event_provider.model");
+const { EVENT_CATEGORY_TABLE } = require("../event_category/event_category.model");
 
 const validateProps = validProps([
     "id",
@@ -52,18 +53,45 @@ module.exports = {
     },
 
     // TODO: handle the date creation
-    create(event) {
+    async create(event) {
         const eventData = {
             ...event,
             date_start: new Date(), // TO UPDATE
             date_end: new Date() // TO UPDATE
         }
 
+        // pre-process the data here
+        // eventProvider => event_provider_id
+        // eventCategory => event_category_id
+        if (eventData.eventProvider) {
+            const eventProviderId = await knex.select("id")
+            .from(EVENT_PROVIDER_TABLE)
+            .where("name", eventData.eventProvider)
+            .first();
+            
+            eventData.event_provider_id = eventProviderId.id;
+            delete eventData.eventProvider;
+        }
+
+        if (eventData.eventCategory) {
+            const eventCategoryId = await knex.select("id")
+            .from(EVENT_CATEGORY_TABLE)
+            .where("name", eventData.eventCategory)
+            .first();
+            
+            eventData.event_category_id = eventCategoryId.id;
+            delete eventData.eventCategory;
+        }
+
         console.log(eventData);
 
-        return knex(EVENT_TABLE).insert(
-            validateProps(eventData)
-        );
+        try {
+            return knex(EVENT_TABLE).insert(
+                validateProps(eventData)
+            );
+        } catch (err) {
+            console.error(err);
+        }
     },
 
     // TODO: handle the date update
