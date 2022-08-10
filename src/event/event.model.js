@@ -59,6 +59,8 @@ module.exports = {
             date_end: new Date() // TO UPDATE
         }
 
+        console.log(eventData);
+
         return knex(EVENT_TABLE).insert(
             validateProps(eventData)
         );
