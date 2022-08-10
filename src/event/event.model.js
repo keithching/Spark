@@ -82,22 +82,35 @@ module.exports = {
             eventData.event_category_id = eventCategoryId.id;
             delete eventData.eventCategory;
         }
-
-        console.log(eventData);
-
-        try {
-            return knex(EVENT_TABLE).insert(
-                validateProps(eventData)
-            );
-        } catch (err) {
-            console.error(err);
-        }
+        
+        return knex(EVENT_TABLE).insert(validateProps(eventData))
     },
 
     // TODO: handle the date update
-    update(id, event) {
+    async update(id, event) {
+        const eventData = {...event};
+        if (eventData.eventProvider) {
+            const eventProviderId = await knex.select("id")
+            .from(EVENT_PROVIDER_TABLE)
+            .where("name", eventData.eventProvider)
+            .first();
+            
+            eventData.event_provider_id = eventProviderId.id;
+            delete eventData.eventProvider;
+        }
+
+        if (eventData.eventCategory) {
+            const eventCategoryId = await knex.select("id")
+            .from(EVENT_CATEGORY_TABLE)
+            .where("name", eventData.eventCategory)
+            .first();
+            
+            eventData.event_category_id = eventCategoryId.id;
+            delete eventData.eventCategory;
+        }
+
         return knex(EVENT_TABLE)
-            .update(validateProps(event))
+            .update(validateProps(eventData))
             .where("id", id);
     },
 
