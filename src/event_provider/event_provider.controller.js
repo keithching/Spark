@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const eventProviderModel = require("./event_provider.model");
+const { isNumberOrString } = require('../../util/validation');
 
 router.get("/", async (req, res) => {
     try {
@@ -31,12 +32,17 @@ router.get("/:idOrName", async (req, res) => {
     }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:idOrEmail", async (req, res) => {
     try {
         // TODO: name support
-        const id = parseInt(req.params.id);
-        await eventProviderModel.update(id, req.body);
-        res.send("event provider updated").status(204).end();
+        const param = isNumberOrString(req.params.idOrEmail);
+        if (param.type === 'number') {
+            await eventProviderModel.updateById(param.value, req.body);
+            res.send("event provider updated").status(204).end();
+        } else if (param.type === 'string') {
+            await eventProviderModel.updateByEmail(param.value, req.body);
+            res.send("event provider updated").status(204).end();
+        }
     } catch(err) {
         res.send(err).status(404);
     }
