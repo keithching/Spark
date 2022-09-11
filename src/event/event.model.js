@@ -10,7 +10,8 @@ const validateProps = validProps([
     "event_category_id",
     "location",
     "date_start",
-    "date_end"
+    "date_end",
+    "imageURL"
 ]);
 
 // const validateRequired = requiredProps(["name"]);
@@ -89,6 +90,8 @@ module.exports = {
             date_start: new Date(), // TO UPDATE
             date_end: new Date() // TO UPDATE
         }
+
+        console.log(eventData);
 
         // pre-process the data here
         // eventProvider => event_provider_id
