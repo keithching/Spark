@@ -29,7 +29,8 @@ module.exports = {
             eventCategory: "event_category.name",
             location: "event.location",
             dateStart: "event.date_start",
-            dateEnd: "event.date_end"
+            dateEnd: "event.date_end",
+            imageURL: "event.imageURL"
         })
         .join("event_provider", "event_provider_id", "event_provider.id")
         .join("event_category", "event_category_id", "event_category.id")
@@ -56,7 +57,8 @@ module.exports = {
             eventCategory: "event_category.name",
             location: "event.location",
             dateStart: "event.date_start",
-            dateEnd: "event.date_end"
+            dateEnd: "event.date_end",
+            imageURL: "event.imageURL"
         })
         .join("event_provider", "event_provider_id", "event_provider.id")
         .join("event_category", "event_category_id", "event_category.id")
@@ -72,7 +74,8 @@ module.exports = {
             eventCategory: "event_category.name",
             location: "event.location",
             dateStart: "event.date_start",
-            dateEnd: "event.date_end"
+            dateEnd: "event.date_end",
+            imageURL: "event.imageURL"
         })
         .join("event_provider", "event_provider_id", "event_provider.id")
         .join("event_category", "event_category_id", "event_category.id")
