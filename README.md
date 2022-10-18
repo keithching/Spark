@@ -4,16 +4,19 @@ The project aims to provide the api endpoints for a potential application that a
 
 This was created during my time as a student at [Code Chrysalis](https://www.codechrysalis.io/).
 
-<br/>
-<br/>
+<br />
+
+## Frontend Repo
+
+Refer https://github.com/keithching/Spark-frontend for frontend repo.
+
+<br />
 
 ## Tech Stack
 
-Backend
-
-- Server
-    - `Node.js`
-    - `Express.js`
+Server
+- `Node.js`
+- `Express.js`
 - API written in `REST API` style.
 
 Unit Testing
@@ -25,18 +28,23 @@ Library
 
 - `bcrypt` (Password Hashing)
 
-<br/>
-<br/>
+<br />
+
+## Ongoing Features
+- uuid
+- user-event relational data
+- increase test coverage
+- protect API routes
+
+<br />
 
 ## API Endpoints
-
-<br/>
 
 ### Event Providers (endpoint)
 
 Getting all the event providers.
 
-`GET` localhost:3000/api/event_providers/
+`GET` /api/event_providers/
 
 | return value | An array of event provider objects. |
 | --- | --- |
@@ -62,7 +70,7 @@ Getting all the event providers.
 
 Create a new event provider.
 
-`POST` localhost:3000/api/event_providers/
+`POST` /api/event_providers/
 
 | return value | null |
 | --- | --- |
@@ -78,7 +86,7 @@ password: "abcd1234"
 
 Get a single event provider by id or name.
 
-`GET` localhost:3000/api/event_providers/{id or name}
+`GET` /api/event_providers/{id or name}
 
 | return value | An event provider object. |
 | --- | --- |
@@ -92,7 +100,7 @@ Get a single event provider by id or name.
 
 Update an event provider’s information.
 
-`PATCH` localhost:3000/api/event_providers/{id}
+`PATCH` /api/event_providers/{id}
 
 | return value | The id for the updated event provider. |
 | --- | --- |
@@ -101,7 +109,7 @@ Update an event provider’s information.
 
 Delete an event provider.
 
-`DELETE` localhost:3000/api/event_providers/{id}
+`DELETE` /api/event_providers/{id}
 
 | return value | null |
 | --- | --- |
@@ -125,7 +133,7 @@ Delete an event provider.
 
 Getting all the event categories.
 
-`GET` localhost:3000/api/event_categories/
+`GET` /api/event_categories/
 
 | return value | An array of event category objects. |
 | --- | --- |
@@ -151,7 +159,7 @@ Getting all the event categories.
 
 Create a new event category.
 
-`POST` localhost:3000/api/event_categories/
+`POST` /api/event_categories/
 
 | return value | null |
 | --- | --- |
@@ -165,7 +173,7 @@ name: "登山ツアー"
 
 Get a single event category by id.
 
-`GET` localhost:3000/api/event_categories/{id}
+`GET` /api/event_categories/{id}
 
 | return value | An event category object. |
 | --- | --- |
@@ -179,7 +187,7 @@ Get a single event category by id.
 
 Update an event category’s information.
 
-`PATCH` localhost:3000/api/event_categories/{id}
+`PATCH` /api/event_categories/{id}
 
 | return value | The id for the updated event category. |
 | --- | --- |
@@ -188,7 +196,7 @@ Update an event category’s information.
 
 Delete an event category.
 
-`DELETE` localhost:3000/api/event_categories/{id}
+`DELETE` /api/event_categories/{id}
 
 | return value | null |
 | --- | --- |
@@ -209,7 +217,7 @@ Delete an event category.
 
 Getting all the events.
 
-`GET` localhost:3000/api/events/
+`GET` /api/events/
 
 | return value | An array of event objects. |
 | --- | --- |
@@ -241,7 +249,7 @@ Getting all the events.
 
 Create a new event.
 
-`POST` localhost:3000/api/events/
+`POST` /api/events/
 
 | return value | null |
 | --- | --- |
@@ -261,7 +269,7 @@ location: "Fukuoka",
 
 Get a single event by id.
 
-`GET` localhost:3000/api/event_categories/{id}
+`GET` /api/event_categories/{id}
 
 | return value | An event object. |
 | --- | --- |
@@ -280,7 +288,7 @@ Get a single event by id.
 
 Update an event’s information.
 
-`PATCH` localhost:3000/api/events/{id}
+`PATCH` /api/events/{id}
 
 | return value | The id for the updated event. |
 | --- | --- |
@@ -289,7 +297,7 @@ Update an event’s information.
 
 Delete an event category.
 
-`DELETE` localhost:3000/api/events/{id}
+`DELETE` /api/events/{id}
 
 | return value | null |
 | --- | --- |

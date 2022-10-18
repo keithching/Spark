@@ -60,7 +60,7 @@ module.exports = {
         }
     },
 
-    update(id, eventProvider) {
+    updateById(id, eventProvider) {
         if (eventProvider.password) {
             eventProvider.password = getHashPassword(eventProvider.password);
         }
@@ -68,6 +68,19 @@ module.exports = {
         return knex(EVENT_PROVIDER_TABLE)
             .update(validateProps(eventProvider))
             .where("id", id)
+            .returning("id")
+            .then(result => result[0].id)
+            .catch(error => {throw new Error(error)});
+    },
+
+    updateByEmail(email, eventProvider) {
+        if (eventProvider.password) {
+            eventProvider.password = getHashPassword(eventProvider.password);
+        }
+
+        return knex(EVENT_PROVIDER_TABLE)
+            .update(validateProps(eventProvider))
+            .where("email", email)
             .returning("id")
             .then(result => result[0].id)
             .catch(error => {throw new Error(error)});
