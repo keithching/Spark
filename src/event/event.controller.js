@@ -21,6 +21,17 @@ router.get("/test", async (req, res) => {
     }
 })
 
+router.get("/:eventId", async (req, res) => {
+    try {
+        const { eventId } = req.params;
+        const event = await eventModel.getById(eventId);
+        res.send(event).status(200);
+    } catch(err) {
+        res.send(err).status(404);
+    }
+})
+
+
 router.post("/", async (req, res) => {
     try {
         const result = await eventModel.create(req.body);
