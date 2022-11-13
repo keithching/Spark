@@ -41,13 +41,20 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/:eventIdOrEventProviderEmail", async (req, res) => {
+router.get("/:eventIdOrEventProviderNameOrEventProviderEmail", async (req, res) => {
     try {
-        const param = isNumberOrString(req.params.eventIdOrEventProviderEmail);
+        const param = isNumberOrString(req.params.eventIdOrEventProviderNameOrEventProviderEmail);
         if (param.type === 'number') {
             const event = await eventModel.getById(param.value);
             res.send(event).status(200);
         } else if (param.type === 'string') {
+            // debugging: pure string
+            if (!param.value.includes(".com")) {
+                const event = await eventModel.getByEventProviderName(param.value);
+                res.send(event).status(200);
+            }
+            
+            // email
             const event = await eventModel.getByEventProviderEmail(param.value);
             res.send(event).status(200);
         }
