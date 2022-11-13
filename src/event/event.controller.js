@@ -48,15 +48,14 @@ router.get("/:eventIdOrEventProviderNameOrEventProviderEmail", async (req, res) 
             // https://expressjs.com/en/guide/migrating-5.html
             // quote: "If you need to send a number by using the res.send() function, quote the number to convert it to a string, 
             // so that Express does not interpret it as an attempt to use the unsupported old signature."
-            res.send(param.value.toString()).status(200);
-            // const event = await eventModel.getById(param.value);
-            // res.send(event).status(200);
+            // res.send(param.value.toString()).status(200);
+            const event = await eventModel.getById(param.value);
+            res.send(event).status(200);
         } else if (param.type === 'string') {
             // debugging: pure string
             if (!param.value.includes(".com")) {
-                res.send(param.value).status(200);
-                // const event = await eventModel.getByEventProviderName(param.value);
-                // res.send(event).status(200);
+                const event = await eventModel.getByEventProviderName(param.value);
+                res.send(event).status(200);
             }
             
             // email
