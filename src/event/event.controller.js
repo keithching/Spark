@@ -50,8 +50,9 @@ router.get("/:eventIdOrEventProviderNameOrEventProviderEmail", async (req, res) 
         } else if (param.type === 'string') {
             // debugging: pure string
             if (!param.value.includes(".com")) {
-                const event = await eventModel.getByEventProviderName(param.value);
-                res.send(event).status(200);
+                res.send(param.value).status(200);
+                // const event = await eventModel.getByEventProviderName(param.value);
+                // res.send(event).status(200);
             }
             
             // email
