@@ -7,7 +7,9 @@ const validateProps = validProps([
     "id",
     "name",
     "email",
-    "password"
+    "password",
+    "phone",
+    "about"
 ]);
 
 // const validateRequired = requiredProps(["name"]);
