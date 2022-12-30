@@ -21,10 +21,16 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/:idOrName", async (req, res) => {
+router.get("/:idOrNameOrEmail", async (req, res) => {
     try {
-        const idOrName = req.params.idOrName;
-        const eventProvider = await eventProviderModel.getByIdOrName(idOrName);
+        const idOrNameOrEmail = req.params.idOrNameOrEmail;
+        if (!idOrNameOrEmail.includes(".com")) {
+            const eventProvider = await eventProviderModel.getByIdOrName(idOrNameOrEmail);
+            res.send(eventProvider).status(200);
+        } 
+
+        // email
+        const eventProvider = await eventProviderModel.getByEmail(idOrNameOrEmail);
         res.send(eventProvider).status(200);
     } 
     catch(err) {

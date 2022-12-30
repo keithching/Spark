@@ -49,6 +49,18 @@ module.exports = {
         }
     },
 
+    getByEmail(email) {
+        return knex.select({
+            id: "id",
+            name: "name",
+            phone: "phone",
+            about: "about"
+        })
+        .from(EVENT_PROVIDER_TABLE)
+        .where("email", email)
+        .first();
+    },
+
     create(eventProvider) {
         try {
             if (eventProvider.password) {
