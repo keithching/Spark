@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const eventUserModel = require("./event_user.model");
+const eventJoinEventConsumerModel = require("./event_join_event_consumer.model");
 
 router.get("/", async (req, res) => {
     try {
-        const eventsUsers = await eventUserModel.getAll();
-        res.send(eventsUsers).status(200);
+        const eventsEventConsumers = await eventJoinEventConsumerModel.getAll();
+        res.send(eventsEventConsumers).status(200);
     } catch(err) {
         res.send(err).status(404);
     }
@@ -13,8 +13,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     try {
-        const result = await eventUserModel.create(req.body);
-        res.send("event user created").status(204).end();
+        const result = await eventJoinEventConsumerModel.create(req.body);
+        res.send("event-join-event-consumer created").status(204).end();
     } catch(err) {
         res.send(err).status(404);
     }
@@ -23,8 +23,8 @@ router.post("/", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         const id = parseInt(req.params.id);
-        await eventUserModel.remove(id);
-        res.send("event user deleted").status(204);
+        await eventJoinEventConsumerModel.remove(id);
+        res.send("event-join-event-consumer deleted").status(204);
     } catch(err) {
         res.send(err).status(404);
     }

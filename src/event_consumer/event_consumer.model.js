@@ -11,17 +11,17 @@ const validateProps = validProps([
     "password"
 ]);
 
-const USER_TABLE = "user";
+const EVENT_CONSUMER_TABLE = "event_consumer";
 
 module.exports = {
-    USER_TABLE,
+    EVENT_CONSUMER_TABLE,
 
     getAll(limit = 100) {
         return knex.select({
             id: "id",
             name: "name"
         })
-        .from(USER_TABLE)
+        .from(EVENT_CONSUMER_TABLE)
         .limit(limit);
     },
 
@@ -32,7 +32,7 @@ module.exports = {
                 id: "id",
                 name: "name"
             })
-            .from(USER_TABLE)
+            .from(EVENT_CONSUMER_TABLE)
             .where("id", data.value)
             .first();
         } else {
@@ -40,32 +40,32 @@ module.exports = {
                 id: "id",
                 name: "name"
             })
-            .from(USER_TABLE)
+            .from(EVENT_CONSUMER_TABLE)
             .where("name", data.value)
             .first();
         }
     },
 
-    create(user) {
+    create(eventConsumer) {
         try {
-            if (user.password) {
-                user.password = getHashPassword(user.password);
+            if (eventConsumer.password) {
+                eventConsumer.password = getHashPassword(eventConsumer.password);
             }
-            return knex(USER_TABLE).insert(
-                validateProps(user)
+            return knex(EVENT_CONSUMER_TABLE).insert(
+                validateProps(eventConsumer)
             );
         } catch (err) {
             throw new Error(err);
         }
     },
 
-    update(id, user) {
-        if (user.password) {
-            user.password = getHashPassword(user.password);
+    update(id, eventConsumer) {
+        if (eventConsumer.password) {
+            eventConsumer.password = getHashPassword(eventConsumer.password);
         }
 
-        return knex(USER_TABLE)
-            .update(validateProps(user))
+        return knex(EVENT_CONSUMER_TABLE)
+            .update(validateProps(eventConsumer))
             .where("id", id)
             .returning("id")
             .then(result => result[0].id)
@@ -73,7 +73,7 @@ module.exports = {
     },
 
     remove(id) {
-        knex.from(USER_TABLE)
+        knex.from(EVENT_CONSUMER_TABLE)
             .where("id", id)
             .del()
             .catch(console.error);

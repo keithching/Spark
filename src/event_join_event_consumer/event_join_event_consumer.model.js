@@ -5,28 +5,28 @@ const { validProps, requiredProps, isNumberOrString } = require("../../util/vali
 const validateProps = validProps([
     "id",
     "event_id",
-    "user_id",
+    "event_consumer_id",
 ]);
 
-const EVENT_USER_TABLE = "event_user";
+const EVENT_JOIN_EVENT_CONSUMER_TABLE = "event_join_event_consumer";
 
 module.exports = {
-    EVENT_USER_TABLE,
+    EVENT_JOIN_EVENT_CONSUMER_TABLE,
 
     getAll(limit = 100) {
         return knex.select({
             id: "id",
             eventId: "event_id",
-            userId: "user_id",
+            userId: "event_consumer_id",
             createdAt: "created_at"
         })
-        .from(EVENT_USER_TABLE)
+        .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .limit(limit);
     },
 
     create(eventUser) {
         try {
-            return knex(EVENT_USER_TABLE).insert(
+            return knex(EVENT_JOIN_EVENT_CONSUMER_TABLE).insert(
                 validateProps(eventUser)
             );
         } catch (err) {
@@ -35,7 +35,7 @@ module.exports = {
     },
 
     remove(id) {
-        knex.from(EVENT_USER_TABLE)
+        knex.from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
             .where("id", id)
             .del()
             .catch(console.error);
