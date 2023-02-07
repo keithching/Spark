@@ -38,12 +38,17 @@ router.get("/:idOrNameOrEmail", async (req, res) => {
   }
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:idOrEmail", async (req, res) => {
   try {
     // TODO: name support
-    const id = parseInt(req.params.id);
-    await eventConsumerModel.update(id, req.body);
-    res.send("eventConsumer updated").status(204).end();
+    const param = isNumberOrString(req.params.idOrEmail);
+    if (param.type === "number") {
+      await eventConsumerModel.updateById(param.value, req.body);
+      res.send("event consumer updated").status(204).end();
+    } else if (param.type === "string") {
+      await eventConsumerModel.updateByEmail(param.value, req.body);
+      res.send("event consumer updated").status(204).end();
+    }
   } catch (err) {
     res.send(err).status(404);
   }
