@@ -49,6 +49,19 @@ module.exports = {
     }
   },
 
+  getByEmail(email) {
+    return knex
+      .select({
+        id: "id",
+        name: "name",
+        phone: "phone",
+        about: "about",
+      })
+      .from(EVENT_CONSUMER_TABLE)
+      .where("email", email)
+      .first();
+  },
+
   create(eventConsumer) {
     try {
       return knex(EVENT_CONSUMER_TABLE).insert(validateProps(eventConsumer));
