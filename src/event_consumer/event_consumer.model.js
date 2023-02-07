@@ -9,7 +9,7 @@ const {
   getHashPassword,
 } = require("../../util/validation");
 
-const validateProps = validProps(["id", "name", "email", "password"]);
+const validateProps = validProps(["id", "name", "email", "phone", "about"]);
 
 const EVENT_CONSUMER_TABLE = "event_consumer";
 
@@ -70,7 +70,7 @@ module.exports = {
     }
   },
 
-  update(id, eventConsumer) {
+  updateById(id, eventConsumer) {
     return knex(EVENT_CONSUMER_TABLE)
       .update(validateProps(eventConsumer))
       .where("id", id)

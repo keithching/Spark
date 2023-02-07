@@ -73,9 +73,6 @@ module.exports = {
 
   create(eventProvider) {
     try {
-      // if (eventProvider.password) {
-      //     eventProvider.password = getHashPassword(eventProvider.password);
-      // }
       return knex(EVENT_PROVIDER_TABLE).insert(validateProps(eventProvider));
     } catch (err) {
       throw new Error(err);
@@ -83,10 +80,6 @@ module.exports = {
   },
 
   updateById(id, eventProvider) {
-    // if (eventProvider.password) {
-    //     eventProvider.password = getHashPassword(eventProvider.password);
-    // }
-
     return knex(EVENT_PROVIDER_TABLE)
       .update(validateProps(eventProvider))
       .where("id", id)
@@ -98,10 +91,6 @@ module.exports = {
   },
 
   updateByEmail(email, eventProvider) {
-    // if (eventProvider.password) {
-    //     eventProvider.password = getHashPassword(eventProvider.password);
-    // }
-
     return knex(EVENT_PROVIDER_TABLE)
       .update(validateProps(eventProvider))
       .where("email", email)
