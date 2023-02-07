@@ -1,6 +1,6 @@
 const knex = require("../knex");
 const bcrypt = require("bcrypt");
-const { v4: uuidv4 } = require("uuid");
+// const { v4: uuidv4 } = require("uuid");
 
 const {
   validProps,
