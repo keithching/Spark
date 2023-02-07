@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const eventConsumerModel = require("./event_consumer.model");
+const { isNumberOrString } = require("../../util/validation");
 
 router.get("/", async (req, res) => {
   try {
