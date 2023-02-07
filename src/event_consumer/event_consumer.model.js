@@ -81,6 +81,17 @@ module.exports = {
       });
   },
 
+  updateByEmail(email, eventConsumer) {
+    return knex(EVENT_CONSUMER_TABLE)
+      .update(validateProps(eventConsumer))
+      .where("email", email)
+      .returning("id")
+      .then((result) => result[0].id)
+      .catch((error) => {
+        throw new Error(error);
+      });
+  },
+
   remove(id) {
     knex.from(EVENT_CONSUMER_TABLE).where("id", id).del().catch(console.error);
   },
