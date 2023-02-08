@@ -14,11 +14,13 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const incomingData = { ...req.body };
+    console.log(incomingData);
     for (const eventId of incomingData.eventIds) {
       const dataToModel = {
         event_id: eventId,
         consumer_id: incomingData.consumerId,
       };
+      console.log(dataToModel);
       await eventJoinEventConsumerModel.create(dataToModel);
     }
 
