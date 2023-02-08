@@ -1,10 +1,6 @@
 const knex = require("../knex");
 
-const {
-  validProps,
-  requiredProps,
-  isNumberOrString,
-} = require("../../util/validation");
+const { validProps, isNumberOrString } = require("../../util/validation");
 
 const validateProps = validProps(["id", "event_id", "consumer_id"]);
 
@@ -23,6 +19,40 @@ module.exports = {
       })
       .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
       .limit(limit);
+  },
+
+  getByIdOrName(idOrName) {
+    const data = isNumberOrString(idOrName);
+    if (data.type == "number") {
+      return knex
+        .select({
+          id: "id",
+          event_id: "event_id",
+        })
+        .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+        .where("id", data.value)
+        .first();
+    } else {
+      return knex
+        .select({
+          id: "id",
+          event_id: "event_id",
+        })
+        .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+        .where("name", data.value)
+        .first();
+    }
+  },
+
+  getByEmail(email) {
+    return knex
+      .select({
+        id: "id",
+        event_id: "event_id",
+      })
+      .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+      .where("email", email)
+      .first();
   },
 
   async create(eventJoinEventConsumer) {

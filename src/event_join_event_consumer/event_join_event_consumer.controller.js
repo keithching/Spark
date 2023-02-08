@@ -11,6 +11,25 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:idOrNameOrEmail", async (req, res) => {
+  try {
+    const idOrNameOrEmail = req.params.idOrNameOrEmail;
+    if (!idOrNameOrEmail.includes(".com")) {
+      const eventsEventConsumers =
+        await eventJoinEventConsumerModel.getByIdOrName(idOrNameOrEmail);
+      res.send(eventsEventConsumers).status(200);
+    }
+
+    // email
+    const eventsEventConsumers = await eventJoinEventConsumerModel.getByEmail(
+      idOrNameOrEmail
+    );
+    res.send(eventsEventConsumers).status(200);
+  } catch (err) {
+    res.send(err).status(404);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const incomingData = { ...req.body };
