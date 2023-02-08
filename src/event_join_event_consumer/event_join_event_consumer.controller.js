@@ -11,20 +11,22 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:idOrNameOrEmail", async (req, res) => {
+router.get("/:idOrEmail", async (req, res) => {
   try {
-    const idOrNameOrEmail = req.params.idOrNameOrEmail;
-    if (!idOrNameOrEmail.includes(".com")) {
-      const eventsEventConsumers =
-        await eventJoinEventConsumerModel.getByIdOrName(idOrNameOrEmail);
+    const idOrEmail = req.params.idOrEmail;
+    console.log(idOrEmail);
+    if (!idOrEmail.includes(".com")) {
+      const eventsEventConsumers = await eventJoinEventConsumerModel.getById(
+        idOrEmail
+      );
+      res.send(eventsEventConsumers).status(200);
+    } else {
+      // email
+      const eventsEventConsumers = await eventJoinEventConsumerModel.getByEmail(
+        idOrEmail
+      );
       res.send(eventsEventConsumers).status(200);
     }
-
-    // email
-    const eventsEventConsumers = await eventJoinEventConsumerModel.getByEmail(
-      idOrNameOrEmail
-    );
-    res.send(eventsEventConsumers).status(200);
   } catch (err) {
     res.send(err).status(404);
   }

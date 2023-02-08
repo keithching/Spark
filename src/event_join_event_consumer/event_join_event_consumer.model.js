@@ -21,7 +21,7 @@ module.exports = {
       .limit(limit);
   },
 
-  getByIdOrName(idOrName) {
+  getById(idOrName) {
     const data = isNumberOrString(idOrName);
     if (data.type == "number") {
       return knex
@@ -30,17 +30,7 @@ module.exports = {
           event_id: "event_id",
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
-        .where("id", data.value)
-        .first();
-    } else {
-      return knex
-        .select({
-          id: "id",
-          event_id: "event_id",
-        })
-        .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
-        .where("name", data.value)
-        .first();
+        .where("consumer_id", data.value);
     }
   },
 
