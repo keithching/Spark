@@ -25,13 +25,23 @@ module.exports = {
       .limit(limit);
   },
 
-  create(eventJoinEventConsumer) {
+  async create(eventJoinEventConsumer) {
     try {
+      // pull data from DB with event_id
+      const result = await knex(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+        .count("event_id")
+        .where("event_id", eventJoinEventConsumer["event_id"])
+        .first();
+
+      if (result.count > 0) {
+        throw "duplicated. abort insertion"; // abort the insertion to DB if duplication is found
+      }
+
       return knex(EVENT_JOIN_EVENT_CONSUMER_TABLE).insert(
         validateProps(eventJoinEventConsumer)
       );
     } catch (err) {
-      throw new Error(err);
+      throw err;
     }
   },
 

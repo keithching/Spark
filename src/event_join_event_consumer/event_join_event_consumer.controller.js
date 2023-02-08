@@ -20,12 +20,12 @@ router.post("/", async (req, res) => {
         event_id: eventId,
         consumer_id: incomingData.consumerId,
       };
+
       await eventJoinEventConsumerModel.create(dataToModel);
     }
-
     res.send("event-join-event-consumer created").status(204).end();
   } catch (err) {
-    res.send(err).status(404);
+    res.status(404).send(err);
   }
 });
 
@@ -35,7 +35,7 @@ router.delete("/:id", async (req, res) => {
     await eventJoinEventConsumerModel.remove(id);
     res.send("event-join-event-consumer deleted").status(204);
   } catch (err) {
-    res.send(err).status(404);
+    res.status(404).send(err);
   }
 });
 
