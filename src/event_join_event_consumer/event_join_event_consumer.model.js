@@ -36,11 +36,13 @@ module.exports = {
     if (data.type == "number") {
       return knex
         .select({
-          id: "id",
-          event_id: "event_id",
-          consumer_id: "consumer_id",
+          id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.id`,
+          event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          consumer_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.consumer_id`,
+          consumer_name: `${EVENT_CONSUMER_TABLE}.name`,
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+        .join(EVENT_CONSUMER_TABLE, "consumer_id", `${EVENT_CONSUMER_TABLE}.id`)
         .where("event_id", data.value);
     }
   },
