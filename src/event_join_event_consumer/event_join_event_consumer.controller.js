@@ -59,10 +59,19 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.delete("/", async (req, res) => {
+  try {
+    await eventJoinEventConsumerModel.remove(req.body);
+    res.send("event-join-event-consumer deleted").status(204);
+  } catch (err) {
+    res.status(404).send(err);
+  }
+});
+
 router.delete("/:id", async (req, res) => {
   try {
     const id = parseInt(req.params.id);
-    await eventJoinEventConsumerModel.remove(id);
+    await eventJoinEventConsumerModel.removeById(id);
     res.send("event-join-event-consumer deleted").status(204);
   } catch (err) {
     res.status(404).send(err);
