@@ -51,8 +51,6 @@ router.post("/", async (req, res) => {
         consumer_id: incomingData.consumerId,
       };
 
-      console.log(dataToModel);
-
       await eventJoinEventConsumerModel.create(dataToModel);
     }
     res.send("event-join-event-consumer created").status(204).end();
