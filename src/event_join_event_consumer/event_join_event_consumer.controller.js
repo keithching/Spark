@@ -11,10 +11,19 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get by eventId - get all the consumers who join this event
+// URI: /api/events_event_consumers/:eventId
+
+// get by event consumer email - get all events joined by this consumer
+// URI: /api/events_event_consumers/:eventConsumerEmail
+
+// get by event provider email - get all events created by this provider
+// URI: /api/events_event_consumers/:eventProviderEmail
+
 router.get("/:idOrEmail", async (req, res) => {
   try {
     const idOrEmail = req.params.idOrEmail;
-    console.log(idOrEmail);
+    // console.log(idOrEmail);
     if (!idOrEmail.includes(".com")) {
       const eventsEventConsumers = await eventJoinEventConsumerModel.getById(
         idOrEmail
@@ -41,6 +50,8 @@ router.post("/", async (req, res) => {
         event_id: eventId,
         consumer_id: incomingData.consumerId,
       };
+
+      console.log(dataToModel);
 
       await eventJoinEventConsumerModel.create(dataToModel);
     }

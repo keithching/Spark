@@ -33,6 +33,7 @@ module.exports = {
         .select({
           id: "id",
           name: "name",
+          email: "email",
         })
         .from(EVENT_CONSUMER_TABLE)
         .where("id", data.value)
@@ -42,6 +43,7 @@ module.exports = {
         .select({
           id: "id",
           name: "name",
+          email: "email",
         })
         .from(EVENT_CONSUMER_TABLE)
         .where("name", data.value)
