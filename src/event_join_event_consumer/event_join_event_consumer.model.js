@@ -38,6 +38,7 @@ module.exports = {
         .select({
           id: "id",
           event_id: "event_id",
+          consumer_id: "consumer_id",
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .where("event_id", data.value);
