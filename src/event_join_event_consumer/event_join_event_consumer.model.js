@@ -100,6 +100,7 @@ module.exports = {
       const result = await knex(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .count("event_id")
         .where("event_id", eventJoinEventConsumer["event_id"])
+        .where("consumer_id", eventJoinEventConsumer["consumer_id"])
         .first();
 
       if (result.count > 0) {
