@@ -118,8 +118,10 @@ module.exports = {
   remove(eventJoinEventConsumer) {
     return knex
       .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
-      .where("event_id", eventJoinEventConsumer.event_id)
-      .where("consumer_id", eventJoinEventConsumer.consumer_id)
+      .where({
+        event_id: eventJoinEventConsumer.event_id,
+        consumer_id: eventJoinEventConsumer.consumer_id,
+      })
       .del()
       .catch(console.error);
   },

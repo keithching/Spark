@@ -61,6 +61,7 @@ router.post("/", async (req, res) => {
 
 router.delete("/", async (req, res) => {
   try {
+    console.log(req.body);
     await eventJoinEventConsumerModel.remove(req.body);
     res.send("event-join-event-consumer deleted").status(204);
   } catch (err) {
