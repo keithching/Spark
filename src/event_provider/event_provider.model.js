@@ -1,23 +1,16 @@
 const knex = require("../knex");
 const bcrypt = require("bcrypt");
 
-const {
-  validProps,
-  requiredProps,
-  isNumberOrString,
-  getHashPassword,
-} = require("../../util/validation");
+const { validProps, isNumberOrString } = require("../../util/validation");
 
 const validateProps = validProps([
   "id",
   "name",
   "email",
-  // "password",
   "phone",
   "about",
+  "profile_pic_url",
 ]);
-
-// const validateRequired = requiredProps(["name"]);
 
 const EVENT_PROVIDER_TABLE = "event_provider";
 
@@ -31,6 +24,7 @@ module.exports = {
         id: "id",
         name: "name",
         email: "email",
+        profile_pic_url: "profile_pic_url",
       })
       .from(EVENT_PROVIDER_TABLE)
       .limit(limit);
