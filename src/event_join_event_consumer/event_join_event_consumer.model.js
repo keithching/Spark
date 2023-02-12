@@ -116,6 +116,7 @@ module.exports = {
   },
 
   remove(eventJoinEventConsumer) {
+    console.log(eventJoinEventConsumer);
     return knex
       .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
       .where({

@@ -9,7 +9,14 @@ const {
   getHashPassword,
 } = require("../../util/validation");
 
-const validateProps = validProps(["id", "name", "email", "phone", "about"]);
+const validateProps = validProps([
+  "id",
+  "name",
+  "email",
+  "phone",
+  "about",
+  "profile_pic_url",
+]);
 
 const EVENT_CONSUMER_TABLE = "event_consumer";
 
