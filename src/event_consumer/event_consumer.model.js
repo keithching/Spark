@@ -22,6 +22,8 @@ module.exports = {
       .select({
         id: "id",
         name: "name",
+        phone: "phone",
+        about: "about",
         email: "email",
         profile_pic_url: "profile_pic_url",
       })
@@ -36,7 +38,10 @@ module.exports = {
         .select({
           id: "id",
           name: "name",
+          phone: "phone",
+          about: "about",
           email: "email",
+          profile_pic_url: "profile_pic_url",
         })
         .from(EVENT_CONSUMER_TABLE)
         .where("id", data.value)
@@ -46,7 +51,10 @@ module.exports = {
         .select({
           id: "id",
           name: "name",
+          phone: "phone",
+          about: "about",
           email: "email",
+          profile_pic_url: "profile_pic_url",
         })
         .from(EVENT_CONSUMER_TABLE)
         .where("name", data.value)
@@ -61,6 +69,8 @@ module.exports = {
         name: "name",
         phone: "phone",
         about: "about",
+        email: "email",
+        profile_pic_url: "profile_pic_url",
       })
       .from(EVENT_CONSUMER_TABLE)
       .where("email", email)
