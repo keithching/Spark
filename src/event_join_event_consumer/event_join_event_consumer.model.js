@@ -40,6 +40,7 @@ module.exports = {
           event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
           consumer_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.consumer_id`,
           consumer_name: `${EVENT_CONSUMER_TABLE}.name`,
+          profile_pic_url: `${EVENT_CONSUMER_TABLE}.profile_pic_url`,
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .join(EVENT_CONSUMER_TABLE, "consumer_id", `${EVENT_CONSUMER_TABLE}.id`)
