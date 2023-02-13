@@ -44,7 +44,7 @@ module.exports = {
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .join(EVENT_CONSUMER_TABLE, "consumer_id", `${EVENT_CONSUMER_TABLE}.id`)
-        .where("event_id", data.value);
+        .where(`${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`, data.value);
     }
   },
 
