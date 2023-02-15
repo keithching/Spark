@@ -22,12 +22,18 @@ module.exports = {
   getAll(limit = 100) {
     return knex
       .select({
-        id: "id",
-        eventId: "event_id",
-        consumerId: "consumer_id",
-        createdAt: "created_at",
+        id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.id`,
+        eventId: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+        eventName: `${EVENT_TABLE}.title`,
+        consumerId: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.consumer_id`,
+        createdAt: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.created_at`,
       })
       .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
+      .join(
+        EVENT_TABLE,
+        `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+        `${EVENT_TABLE}.id`
+      )
       .limit(limit);
   },
 
@@ -38,39 +44,50 @@ module.exports = {
         .select({
           id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.id`,
           event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          event_name: `${EVENT_TABLE}.title`,
           consumer_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.consumer_id`,
           consumer_name: `${EVENT_CONSUMER_TABLE}.name`,
           profile_pic_url: `${EVENT_CONSUMER_TABLE}.profile_pic_url`,
         })
         .from(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .join(EVENT_CONSUMER_TABLE, "consumer_id", `${EVENT_CONSUMER_TABLE}.id`)
+        .join(
+          EVENT_TABLE,
+          `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          `${EVENT_TABLE}.id`
+        )
         .where(`${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`, data.value);
     }
   },
 
-  // get by event consumer email - get all events joined by this consumer
-  // URI: /api/events_event_consumers/:eventConsumerEmail
-
-  // get by event provider email - get all events created by this provider
-  // URI: /api/events_event_consumers/:eventProviderEmail
   async getByEmail(email) {
     const consumerCount = await knex(EVENT_CONSUMER_TABLE)
       .count(`${EVENT_CONSUMER_TABLE}.email`)
       .where(`${EVENT_CONSUMER_TABLE}.email`, email)
       .first();
 
+    // get by event consumer email - get all events joined by this consumer
+    // URI: /api/events_event_consumers/:eventConsumerEmail
     if (Number(consumerCount.count) !== 0) {
       return knex(EVENT_JOIN_EVENT_CONSUMER_TABLE)
         .select({
           id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.id`,
           consumer_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.consumer_id`,
           event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          event_name: `${EVENT_TABLE}.title`,
           consumer_email: `${EVENT_CONSUMER_TABLE}.email`,
         })
         .join(EVENT_CONSUMER_TABLE, "consumer_id", `${EVENT_CONSUMER_TABLE}.id`)
+        .join(
+          EVENT_TABLE,
+          `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          `${EVENT_TABLE}.id`
+        )
         .where(`${EVENT_CONSUMER_TABLE}.email`, email);
     }
 
+    // get by event provider email - get all events created by this provider
+    // URI: /api/events_event_consumers/:eventProviderEmail
     const providerCount = await knex(EVENT_PROVIDER_TABLE)
       .count(`${EVENT_PROVIDER_TABLE}.email`)
       .where(`${EVENT_PROVIDER_TABLE}.email`, email)
@@ -83,6 +100,7 @@ module.exports = {
           event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
           provider_id: `${EVENT_TABLE}.event_provider_id`,
           event_id: `${EVENT_JOIN_EVENT_CONSUMER_TABLE}.event_id`,
+          event_name: `${EVENT_TABLE}.title`,
           provider_email: `${EVENT_PROVIDER_TABLE}.email`,
         })
         .join(EVENT_TABLE, "event_id", `${EVENT_TABLE}.id`)
