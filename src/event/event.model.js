@@ -66,6 +66,22 @@ module.exports = {
         .where("event.id", id);
     },
 
+    getByEventProviderName(string) {
+        return knex(EVENT_TABLE).select({
+            id: "event.id",
+            title: "event.title",
+            eventProvider: "event_provider.name",
+            eventCategory: "event_category.name",
+            location: "event.location",
+            dateStart: "event.date_start",
+            dateEnd: "event.date_end",
+            imageURL: "event.imageURL"
+        })
+        .join("event_provider", "event_provider_id", "event_provider.id")
+        .join("event_category", "event_category_id", "event_category.id")
+        .where("event_provider.name", string);
+    },
+
     getByEventProviderEmail(email) {
         // TODO: grab the relational data by join table and return it
         return knex(EVENT_TABLE).select({

@@ -12,13 +12,12 @@ const validateProps = validProps([
   "profile_pic_url",
 ]);
 
-const EVENT_PROVIDER_TABLE = "event_provider";
+const EVENT_CONSUMER_TABLE = "event_consumer";
 
 module.exports = {
-  EVENT_PROVIDER_TABLE,
+  EVENT_CONSUMER_TABLE,
 
   getAll(limit = 100) {
-    // arbitrary limit for now
     return knex
       .select({
         id: "id",
@@ -28,7 +27,7 @@ module.exports = {
         email: "email",
         profile_pic_url: "profile_pic_url",
       })
-      .from(EVENT_PROVIDER_TABLE)
+      .from(EVENT_CONSUMER_TABLE)
       .limit(limit);
   },
 
@@ -44,7 +43,7 @@ module.exports = {
           email: "email",
           profile_pic_url: "profile_pic_url",
         })
-        .from(EVENT_PROVIDER_TABLE)
+        .from(EVENT_CONSUMER_TABLE)
         .where("id", data.value)
         .first();
     } else {
@@ -57,7 +56,7 @@ module.exports = {
           email: "email",
           profile_pic_url: "profile_pic_url",
         })
-        .from(EVENT_PROVIDER_TABLE)
+        .from(EVENT_CONSUMER_TABLE)
         .where("name", data.value)
         .first();
     }
@@ -73,22 +72,22 @@ module.exports = {
         email: "email",
         profile_pic_url: "profile_pic_url",
       })
-      .from(EVENT_PROVIDER_TABLE)
+      .from(EVENT_CONSUMER_TABLE)
       .where("email", email)
       .first();
   },
 
-  create(eventProvider) {
+  create(eventConsumer) {
     try {
-      return knex(EVENT_PROVIDER_TABLE).insert(validateProps(eventProvider));
+      return knex(EVENT_CONSUMER_TABLE).insert(validateProps(eventConsumer));
     } catch (err) {
       throw new Error(err);
     }
   },
 
-  updateById(id, eventProvider) {
-    return knex(EVENT_PROVIDER_TABLE)
-      .update(validateProps(eventProvider))
+  updateById(id, eventConsumer) {
+    return knex(EVENT_CONSUMER_TABLE)
+      .update(validateProps(eventConsumer))
       .where("id", id)
       .returning("id")
       .then((result) => result[0].id)
@@ -97,9 +96,9 @@ module.exports = {
       });
   },
 
-  updateByEmail(email, eventProvider) {
-    return knex(EVENT_PROVIDER_TABLE)
-      .update(validateProps(eventProvider))
+  updateByEmail(email, eventConsumer) {
+    return knex(EVENT_CONSUMER_TABLE)
+      .update(validateProps(eventConsumer))
       .where("email", email)
       .returning("id")
       .then((result) => result[0].id)
@@ -109,6 +108,6 @@ module.exports = {
   },
 
   remove(id) {
-    knex.from(EVENT_PROVIDER_TABLE).where("id", id).del().catch(console.error);
+    knex.from(EVENT_CONSUMER_TABLE).where("id", id).del().catch(console.error);
   },
 };
