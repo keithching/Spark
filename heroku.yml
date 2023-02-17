@@ -1,0 +1,14 @@
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web: Dockerfile
+
+  # build-time environment variables
+  # do not create runtime config vars
+  # runtime config vars are not available at build-time
+  # config:
+  #   DATABASE_URL: postgres://viprveijimqlji:6ccdaa86986d5c54f5c95c91ccac545c75cf5d3420230c30ff66e654db2a84d6@ec2-44-205-64-253.compute-1.amazonaws.com:5432/d63714becuvtt2
+  #   PGSSLMODE: no-verify
